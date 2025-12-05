@@ -1,6 +1,6 @@
 # Assessing the Deadly Earthquake Claim in 🇧🇩
 
-This dataset (1133 events, 1985–2025) captures nearly four decades of regional seismicity around Bangladesh. The system shows:
+This [dataset](https://earthquake.usgs.gov/earthquakes/search/) (1133 events, 1985–2025) captures nearly four decades of regional seismicity around Bangladesh. The system shows:
 
 * **Long-term stable moderate activity**, dominated by M4–5 earthquakes.
 * **No significant increase in large (M≥6) events** in recent years.
