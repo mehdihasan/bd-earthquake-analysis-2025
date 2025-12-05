@@ -6,4 +6,7 @@ scikit-learn
 seaborn
 jupyter
 notebook
+contextily
+geopandas
+shapely
 plotly
