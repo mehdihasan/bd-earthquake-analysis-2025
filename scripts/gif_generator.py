@@ -1,11 +1,12 @@
 import imageio.v2 as imageio
+from moviepy import ImageSequenceClip
 import pandas as pd
 import plotly.express as px
 import os
 
 frames = []
 
-df = pd.read_csv('data/query.csv')
+df = pd.read_csv('../data/query.csv')
 df.info()
 df['time'] = pd.to_datetime(df['time'], errors='coerce')
 
@@ -39,7 +40,6 @@ for year in years:
         text="label",
         hover_name="place",
         projection="natural earth",
-        title=f"betweensystems.com   Earthquakes - {year}",
         color_continuous_scale="Turbo",
 
         # ★ Fixed color scale
@@ -58,6 +58,18 @@ for year in years:
             sizemin=3,
             opacity=0.85,
         )
+    )
+
+    # ★ Add centered title as annotation
+    fig_year.update_layout(
+        title={
+            'text': f"betweensystems.com   Earthquakes - {year}",
+            'x': 0.5,          # center horizontally
+            'xanchor': 'center',
+            'yanchor': 'top',
+            'y': 0.99,         # adjust vertical position (1 = top edge)
+            'font': dict(size=24, color='black')
+        }
     )
 
     # ★ Fixed window (does not move)
@@ -79,6 +91,12 @@ for year in years:
 
 # Generate GIF
 imageio.mimsave("earthquake_animation.gif", frames, fps=0.50)
+
+# frames = list of PNG paths
+image_files = [f"frame_{year}.png" for year in sorted(region_df["year"].unique())]
+
+clip = ImageSequenceClip(image_files, fps=0.50)
+clip.write_videofile("earthquake_animation.mp4", codec="libx264", fps=0.50)
 
 # Cleanup PNGs
 for f in os.listdir():
